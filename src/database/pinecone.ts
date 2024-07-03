@@ -67,6 +67,7 @@ export const deleteData=async (namespace:string="pdfData")=>{
 }
 
 
+
 let d1: any=""
 export let userOldData :[string]=["only use this dataset for getting additional information."];
 //fetch query
