@@ -67,19 +67,10 @@ export const deleteData=async (namespace:string="pdfData")=>{
 }
 
 
-
 let d1: any=""
-export let userOldData :[string]=["only use this dataset for getting additional information."];
+export let userOldData :[string]=["below content is our past history what we have seen so far"];
 //fetch query
 export const fetchData = async (query:string)=>{
-  if(query.split(" ").length<2){
-    if(greetings.includes(query.split(" ").join("").toUpperCase)){
-
-    }
-    const data=await response(query)
-    console.log(data)
-    return data;
-  }
   console.log("inside fetch")
   await embedQuery(query)
   .then(async(data)=>{
@@ -95,8 +86,8 @@ export const fetchData = async (query:string)=>{
       })
       const dataz=await response(query,d1)
       console.log("cohere data : ",dataz)
-      userOldData.push(query)
-      userOldData.push(dataz)
+      userOldData.push("Q : "+query)
+      userOldData.push("A : "+dataz)
       console.log("user data : " ,userOldData)
       d1=""
     })

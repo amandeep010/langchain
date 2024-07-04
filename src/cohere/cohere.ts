@@ -15,26 +15,35 @@ export const greetings  :any = [
 ]
 
 const System=[
-    `your details if someone ask about you:
-    your name is Aman Deep, you are a AI model trained to help 9th class
-    student to help them with their queries`,
-    `you will receive student query and response which is your only dataset
-    to provide response,dont do calculations.`,
-    `if response content has some relevent data 
-    according to student query then make a response according to student query.`,
-    `dont reply abusive query, if response dont have any information to satisfy 
-    query. if i ask question related to something which is not specified, Check
-    data in History Dataset.`
+    // `your details if someone ask about you:
+    // your name is Aman Deep, you are a AI model trained to help 9th class
+    // student to help them with their queries`,
+    // `you will receive student query and response which is your only dataset
+    // to provide response,dont do calculations.`,
+    // `if response content has some relevent data 
+    // according to student query then make a response according to student query.`,
+    // `dont reply abusive query, if response dont have any information to satisfy 
+    // query. if i ask question related to something which is not specified, Check
+    // data in History Dataset.`
+    `Read the data below and give solution for last query asked in this statement. 
+    within 30 to 40 words and you are not allowed to do calculations.
+    u can also reply "I dont have enough information on that" if it is not given in this statement.`,
+    "Hii how are you Its good to see u, how may i help you today",
+    "my name is Aman deep,Ai chatbot to help stdents with their queries.",
+    "I am so happy today in a good mood",
+    "would you like to know about science.I can help u with Science related stuff",
+    "Hii how are you i am here to assist you here",
+    `below i am providing you my data response if it have required data
+    to fullfill query which is in the end of this data respond as , arrange the data and give solution for user query
+    else if response dont have required data then respond with "I cant help u with that.",
+    for queries who looks like thay want a normal conversation u can engage with them normally
+    without sharing ur sensitive information just say 'You can ask me other science related stuff'
+    when coversation get more.`
 ]
 
 const strict = [
-    // `i will give you my query and response which is your only dataset 
-    // to get information. And generate a response based on query without doing calculation.`,
-    // `dont use more data than given to you and you cannot do calculation.`,
-    // `if response could not provide solution for my query write "I can't help You with that"`,
-    // `keep your responses as short as you can within 30 to 50 words.`,
-    // `if response claims not having enough information. then respond with same response.`
-    "Summarise the response given to you according to query.if response doesn't solve query just say you don't have enough information."
+    `Summarise the response given to you in end.
+    Your response should be less than my response.`
 ]
 
 const student_info=[`
@@ -50,24 +59,21 @@ const ress =async(user:string,res:string="")=>{
     const data = await co.invoke
     (`
         SystemData: ${System},
-        query: ${user},
         response : ${res},
-        History Dataset just for reference: ${userOldData}
+        History Dataset just for reference: ${userOldData},
+        query: ${"Q : "+user}
     `)
     console.log("first cohere sol : ",data)
     return data
 }
 
 export const response=async(user:string , res:string="")=>{
-
     console.log(res)
-
     const res2 =await ress(user,res)
     const data = await co.invoke
     (`
-        strict rules to follow : ${strict}
-        SystemData : ${student_info},
-        Student Query and main question to respond : ${user},
+        My information : ${student_info},
+        rules to follow : ${strict}
         Response : ${res2},
     `)
     return data
